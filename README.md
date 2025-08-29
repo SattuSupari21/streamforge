@@ -74,3 +74,27 @@ make up
 - Rate limiting and input validation on all key routes
 - Logs: Pino (app), access/error logs (Nginx)
 
+## Example CURL Commands
+### 1. User Registration
+```
+curl -X POST http://localhost:8080/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"yourpassword","role":"uploader"}'
+```
+### 2. User Login
+```
+curl -X POST http://localhost:8080/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"yourpassword"}'
+```
+### 3. Video Upload (Authenticated as Uploader/Admin)
+```
+curl -X POST http://localhost/upload \
+  -H "Authorization: Bearer {JWT_TOKEN}" \
+  -F "file=@/path/to/video.mp4"
+```
+### 4. Get Manifest URL for Playback (Authenticated)
+```
+curl -X GET http://localhost:8080/play/my_video_123/manifest \
+  -H "Authorization: Bearer {JWT_TOKEN}"
+```
