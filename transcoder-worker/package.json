@@ -10,6 +10,7 @@
     "@aws-sdk/lib-storage": "^3.873.0",
     "@aws-sdk/s3-request-presigner": "^3.873.0",
     "@smithy/core": "^3.9.0",
+    "@types/amqplib": "^0.10.7",
     "@types/pg": "^8.15.5",
     "amqplib": "^0.10.8",
     "pg": "^8.16.3",

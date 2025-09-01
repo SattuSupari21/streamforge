@@ -1,5 +1,5 @@
 import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
-import amqp from 'amqplib';
+import * as amqp from 'amqplib';
 import { exec } from 'child_process';
 import { pipeline } from 'stream';
 import { createWriteStream, mkdirSync, existsSync, readdirSync, promises } from 'fs';
@@ -57,7 +57,7 @@ async function startWorker() {
 
   logger.info('Transcoder worker started, waiting for jobs...');
 
-  channel.consume(queue, async (msg) => {
+  channel.consume(queue, async (msg: any) => {
     if (!msg) return;
 
     let job;
