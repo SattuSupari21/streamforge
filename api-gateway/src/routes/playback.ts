@@ -8,6 +8,29 @@ import logger from '../utils/logger';
 
 const router = express.Router();
 
+/**
+ * @openapi
+ * /play/{videoId}/manifest:
+ *   get:
+ *     summary: Get a manifest for a video
+ *     parameters:
+ *       - name: videoId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Manifest found
+ *       404:
+ *         description: Manifest not found
+ *       409:
+ *         description: Video not ready for playback
+ *       400:
+ *         description: videoId is required
+ *       500:
+ *         description: Failed to get manifest
+ */
 router.get('/:videoId/manifest', async (req, res) => {
   const parseResult = videoIdSchema.safeParse(req.params.videoId);
 
@@ -52,10 +75,8 @@ router.get('/:videoId/manifest', async (req, res) => {
       });
     }
 
-    // Path to master playlist in MinIO
     const manifestKey = `transcoded/${videoId}/playlist.m3u8`;
 
-    // Initialize S3 client for existence check
     const s3Client = new S3Client({
       region: 'us-east-1',
       endpoint: process.env.MINIO_ENDPOINT || 'http://minio:9000',

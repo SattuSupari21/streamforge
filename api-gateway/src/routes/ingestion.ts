@@ -15,6 +15,33 @@ const upload = multer({
 
 const videoFormats = ['video/mp4', 'video/mkv', 'video/webm'];
 
+/**
+ * @openapi
+ * /ingestion/upload:
+ *   post:
+ *     summary: Upload a video chunk
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Upload successful
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Upload failed
+ *       401:
+ *         description: Unauthorized
+ */
 router.post('/upload', requireAuth(['uploader', 'admin']), upload.single('video'), async (req, res) => {
   try {
     if (!req.file) {

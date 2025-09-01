@@ -6,6 +6,31 @@ import { createUser, getUserByUsername } from '../models/user';
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
 
+/**
+ * @openapi
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *                 enum: [admin, uploader, viewer]
+ *     responses:
+ *       200:
+ *         description: Registration successful
+ *       409:
+ *         description: Username exists
+ */
 router.post('/register', async (req, res) => {
   const schema = z.object({
     username: z.string().min(3),
@@ -25,6 +50,30 @@ router.post('/register', async (req, res) => {
   res.json({ success: true, user: { username: user.username, role: user.role } });
 });
 
+/**
+ * @openapi
+ * /auth/login:
+ *   post:
+ *     summary: Login with username and password
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Invalid credentials
+ *       400:
+ *         description: Bad request
+ */
 router.post('/login', async (req, res) => {
   const schema = z.object({
     username: z.string().min(3),
