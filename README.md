@@ -78,10 +78,10 @@ This URL loads the interactive Swagger UI, which lets you:
 - `POST /auth/login` — Obtain JWT token
 ### Video Ingestion & Management
 
-- `POST /upload/` — Upload video chunks (JWT required)
-- `GET /video/:videoId` — Get video metadata
-- `GET /videos` — List videos (pagination, search)
-- `POST /video` — Register new video metadata
+- `POST /ingestion/upload/` — Upload video chunks (JWT required)
+- `GET /videos/getVideoById/:videoId` — Get video metadata
+- `GET /videos/getAllVideos` — List videos (pagination, search)
+- `POST /videos/createVideo` — Register new video metadata
 ### Playback
 - `GET /play/:videoId/manifest` — Signed master playlist URL (role protected)
 
