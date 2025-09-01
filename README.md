@@ -45,12 +45,30 @@ cd streamForge
 	- MinIO access/secret key
 	- RabbitMQ credentials
 	- Database settings
-3. Start using Make file:
+3. Run Migrations:
+    - To create/update the database schema, run migrations with:
+  ```
+    cd db
+    bun run migrate
+  ```
+4. Start using Make file:
 ```
 make up
 ```
 4. Access API Gateway at [http://localhost:3000](http://localhost:3000)
 5. Access Nginx Secure Proxy at [http://localhost:8080](http://localhost:8080)
+
+## Swagger API Documentation
+This project includes automatically generated OpenAPI (Swagger) documentation for all supported REST API endpoints.
+
+### Accessing the Documentation
+```
+http://localhost:3000/docs
+```
+This URL loads the interactive Swagger UI, which lets you:
+- Browse all available API endpoints with detailed request and response schemas
+- Test the APIs directly from the browser with live request execution
+- View authentication requirements and supported operations
 
 ## API Gateway Endpoints
 
